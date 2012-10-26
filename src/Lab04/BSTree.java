@@ -7,7 +7,7 @@
 
 public class BSTree {
 
-	private BSTNode root;
+	protected BSTNode root;
 
 	/**
 	 * Inserts a new item into the BST.
@@ -555,7 +555,7 @@ public class BSTree {
 
 		if (x == null) {
 
-			return 0;
+			return -1;
 		}
 
 		if (x.leftChild == null && x.rightChild == null) {
@@ -582,7 +582,7 @@ public class BSTree {
 		int height;
 
 		if (x == null) {
-			return 0;
+			return -1;
 		}
 
 		if (x.leftChild == null && x.rightChild == null) {
@@ -606,6 +606,45 @@ public class BSTree {
 	public int balanceFactor(BSTNode node) {
 
 		return getHeight(node.leftChild) - getHeight(node.rightChild);
+	}
+
+	/**
+	 * Traverses and prints the nodes of the subtree rooted at a particular node
+	 * level-order fashion.
+	 * 
+	 * @param localRoot
+	 *            The root of the subtree which has to be traversed level-order
+	 */
+	public void levelOrder(BSTNode localRoot) {
+		Queue<BSTNode> q = new Queue<BSTNode>();
+		BSTNode x = localRoot;
+		BSTNode y = null;
+
+		if (x == null) {
+			return;
+		}
+
+		q.enqueue(x);
+
+		while (!(q.isEmpty())) {
+
+			y = q.dequeue();
+			if (y.leftChild != null) {
+				q.enqueue(y.leftChild);
+			}
+
+			if (y.rightChild != null) {
+				q.enqueue(y.rightChild);
+			}
+			y.display();
+		}
+	}
+
+	/**
+	 * Traverses and prints the nodes of BST in Level order fashion.
+	 */
+	public void levelOrder() {
+		levelOrder(this.getRoot());
 	}
 
 }

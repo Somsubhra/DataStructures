@@ -250,7 +250,9 @@ public class RedBlackTree {
 		if (localRoot != null) {
 
 			inOrder(localRoot.leftChild);
-			localRoot.display();
+
+			if (localRoot != this.nil)
+				localRoot.display();
 			inOrder(localRoot.rightChild);
 		}
 
@@ -426,4 +428,44 @@ public class RedBlackTree {
 		return current;
 	}
 
+	/**
+	 * Traverses and prints the nodes of the subtree rooted at a particular node
+	 * level-order fashion.
+	 * 
+	 * @param localRoot
+	 *            The root of the subtree which has to be traversed level-order
+	 */
+	public void levelOrder(RedBlackNode localRoot) {
+		Queue<RedBlackNode> q = new Queue<RedBlackNode>();
+		RedBlackNode x = localRoot;
+		RedBlackNode y = null;
+
+		if (x == null) {
+			return;
+		}
+
+		q.enqueue(x);
+
+		while (!(q.isEmpty())) {
+
+			y = q.dequeue();
+			if (y.leftChild != null) {
+				q.enqueue(y.leftChild);
+			}
+
+			if (y.rightChild != null) {
+				q.enqueue(y.rightChild);
+			}
+
+			if (y != this.nil)
+				y.display();
+		}
+	}
+
+	/**
+	 * Traverses and prints the nodes of BST in Level order fashion.
+	 */
+	public void levelOrder() {
+		levelOrder(this.getRoot());
+	}
 }

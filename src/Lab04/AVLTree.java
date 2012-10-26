@@ -107,4 +107,94 @@ public class AVLTree extends BSTree {
 		}
 	}
 
+	/**
+	 * Deletes a node with a given value from the AVL Tree.
+	 * 
+	 * @param item
+	 *            The item to be deleted from the AVL Tree
+	 * @return The node containing the item which is deleted from the AVL Tree
+	 */
+	public BSTNode delete(int item) {
+		BSTNode current = root;
+
+		boolean isLeftChild = true;
+
+		while (current.data != item) {
+
+			if (item < current.data) {
+
+				isLeftChild = true;
+
+				current = current.leftChild;
+			} else {
+
+				isLeftChild = false;
+
+				current = current.rightChild;
+			}
+		}
+
+		BSTNode parent = current.parent;
+
+		if (current.leftChild == null && current.rightChild == null) {
+
+			if (current == root) {
+				root = null;
+			} else if (isLeftChild) {
+				current.parent.leftChild = null;
+			} else {
+				current.parent.rightChild = null;
+			}
+		}
+
+		else if (current.rightChild == null) {
+			if (current == root) {
+				root = current.leftChild;
+			} else if (isLeftChild) {
+				current.parent.leftChild = current.leftChild;
+			} else {
+				current.parent.rightChild = current.leftChild;
+			}
+		}
+
+		else if (current.leftChild == null) {
+			if (current == root) {
+				root = current.rightChild;
+			} else if (isLeftChild) {
+				current.parent.leftChild = current.rightChild;
+			} else {
+				current.parent.rightChild = current.rightChild;
+			}
+		}
+
+		else {
+			BSTNode successor = delete(this.getSuccessor(current).data);
+
+			if (current == root) {
+				root = successor;
+			}
+
+			else if (isLeftChild) {
+				current.parent.leftChild = successor;
+				successor.leftChild = current.leftChild;
+				successor.rightChild = current.rightChild;
+			}
+
+			else {
+				current.parent.rightChild = successor;
+				successor.leftChild = current.leftChild;
+				successor.rightChild = current.rightChild;
+			}
+		}
+
+		while (parent != null) {
+
+			balance(parent);
+			parent = parent.parent;
+		}
+
+		return current;
+
+	}
+
 }

@@ -16,11 +16,11 @@ public class RedBlackTreeTester {
 		t.insert(19);
 		t.insert(97);
 		t.insert(27);
-		t.inOrder();
+		t.levelOrder();
 		System.out.println();
 		t.delete(14);
 
-		t.inOrder();
+		t.levelOrder();
 		// t.getRoot().display();
 		// t.find(15).display();
 	}
