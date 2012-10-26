@@ -123,6 +123,73 @@ public class Array {
 	}
 
 	/**
+	 * Sorts the Array using merge-sort technique.
+	 */
+	public void mergeSort() {
+		mergeSort(0, getSize() - 1);
+	}
+
+	/**
+	 * Sorts the Array in the given range recursively using merge-sort.
+	 * 
+	 * @param start
+	 *            The starting element of the Array
+	 * @param end
+	 *            The last element of the Array
+	 */
+	private void mergeSort(int start, int end) {
+
+		if (start < end) {
+			int middle = (start + end) / 2;
+			mergeSort(start, middle);
+			mergeSort(middle + 1, end);
+			merge(start, middle, end);
+		}
+	}
+
+	/**
+	 * Merges two Arrays for merge sort.
+	 * 
+	 * @param start
+	 *            The starting element of the merged Array
+	 * @param middle
+	 *            The middle element of the merged Array
+	 * @param end
+	 *            The last element of the merged Array
+	 */
+	private void merge(int start, int middle, int end) {
+		int[] tmp = new int[getSize()];
+		for (int i = start; i <= end; i++) {
+			tmp[i] = arr[i];
+
+		}
+
+		int i = start;
+		int j = middle + 1;
+		int k = start;
+
+		while (i <= middle && j <= end) {
+			if (tmp[i] <= tmp[j]) {
+				arr[k] = tmp[i];
+				i++;
+			}
+
+			else {
+				arr[k] = tmp[j];
+				j++;
+			}
+			k++;
+
+		}
+
+		while (i <= middle) {
+			arr[k] = tmp[i];
+			k++;
+			i++;
+		}
+	}
+
+	/**
 	 * Sorts the Array using bubble-sort technique.
 	 */
 	public void bubbleSort() {
@@ -168,33 +235,62 @@ public class Array {
 			arr[in] = temp;
 		}
 	}
-	
-	public void quickSort(){
-		quickSort(2,getSize()-1);
+
+	/**
+	 * Sorts the Array using Quick Sort technique.
+	 */
+	public void quickSort() {
+		quickSort(0, getSize() - 1);
 	}
-	
-	private void quickSort(int p, int r){
-		int q;
-		if(p<r){
-			q = partition(p,r);
-			quickSort(p,q-1);
-			quickSort(q+1,r);
-			
+
+	/**
+	 * Sorts the array in the given range recursively using quick sort.
+	 * 
+	 * @param p
+	 *            The starting element of the array
+	 * @param r
+	 *            The ending element of the array
+	 */
+	private void quickSort(int start, int end) {
+
+		if (start < end) {
+			int q = partition(start, end);
+			quickSort(start, q);
+			quickSort(q + 1, end);
+
 		}
 	}
-	
-	private int partition(int p, int r){
-		int x = arr[r];
-		int i = p-1;
-		
-		for(int j=p; j<r; j++){
-			if(arr[j]<=x){
-				i = i+1;
-				swap(arr[i],arr[j]);
+
+	/**
+	 * Partitions the Array for quick sort.
+	 * 
+	 * @param p
+	 *            The starting element of the array
+	 * @param r
+	 *            The ending element of th array
+	 * @return The partition location
+	 */
+	private int partition(int start, int end) {
+		int x = arr[start];
+		int i = start - 1;
+		int j = end + 1;
+
+		while (true) {
+			i++;
+			while (i < end && arr[i] < x) {
+				i++;
+			}
+			j--;
+			while (j > start && arr[j] > x) {
+				j--;
+			}
+
+			if (i < j) {
+				swap(i, j);
+			} else {
+				return j;
 			}
 		}
-		swap(arr[i+1],arr[r]);
-		return i+1;
 	}
 
 	/**
