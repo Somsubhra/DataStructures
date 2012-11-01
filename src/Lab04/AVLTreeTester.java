@@ -1,3 +1,4 @@
+package Lab04;
 /**
  * Tester for AVL Tree.
  * 

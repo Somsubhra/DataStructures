@@ -1,3 +1,4 @@
+package Lab04;
 /**
  * Tester for Two Three Four Tree.
  * 

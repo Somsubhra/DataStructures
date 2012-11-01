@@ -1,3 +1,4 @@
+package Lab04;
 /**
  * Implementation of a Binary Search Tree Node.
  * 

@@ -1,3 +1,4 @@
+package Lab04;
 /**
  * The tester for BSTree.
  * 
